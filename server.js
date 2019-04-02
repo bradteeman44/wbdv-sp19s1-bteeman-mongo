@@ -11,13 +11,9 @@ app.use(session({
 
 app.use(bodyParser.json());
 
-app.get('/hello', function(req, res){
-    res.send('hello world');
-});
-
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin",
-        "http://localhost:4200");
+        "*");
     res.header("Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods",
@@ -25,5 +21,8 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Credentials", "true");
     next();
 });
+
+const studentService = require('./services/student.service.server');
+studentService(app);
 
 app.listen(3000);
