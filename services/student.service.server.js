@@ -12,16 +12,18 @@ module.exports = function(app) {
     }
 
     function findStudentById(req, res) {
-        res.json(dao.findStudentById(req.params.id)
-            .then(response => response))
+        dao.findStudentById(req.params.id)
+            .then(response => res.json(response))
     }
 
     function updateStudent(req, res) {
-
+        dao.updateStudent(req.params.id, req.body)
+            .then(response => res.json(response))
     }
 
     function deleteStudent(req, res) {
-
+        dao.deleteStudent(req.params.id)
+            .then(response => res.json(response))
     }
 
     app.post('/api/student', createStudent);

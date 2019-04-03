@@ -5,8 +5,15 @@ const questionSchema = mongoose.Schema({
     _id: Number,
     question: String,
     points: Number,
-    questionType: String,
-    multipleChoice: MultipleChoiceSchema,
-    trueFalse: TrueFalseSchema
+    questionType: {
+        type: String,
+        enum: ["TRUE_FALSE", "MULTIPLE_CHOICE"],
+        required: true
+    },
+    isTrue: Boolean,
+    choices: String,
+    correct: Number
+    //multipleChoice: MultipleChoiceSchema,
+    //trueFalse: TrueFalseSchema
 }, {collection: 'questions'});
 module.exports = questionSchema;

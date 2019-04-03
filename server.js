@@ -23,6 +23,12 @@ app.use(function(req, res, next) {
 });
 
 const studentService = require('./services/student.service.server');
+const questionService = require('./services/question.service.server');
+const answerService = require('./services/answer.service.server');
+const testDataService = require('./services/test-data.service.server');
 studentService(app);
+questionService(app);
+answerService(app);
+testDataService(app);
 
 app.listen(3000);
