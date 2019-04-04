@@ -21,8 +21,6 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Credentials", "true");
     next();
 });
-// Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 3000);
 
 const studentService = require('./services/student.service.server');
 const questionService = require('./services/question.service.server');
@@ -32,3 +30,6 @@ studentService(app);
 questionService(app);
 answerService(app);
 testDataService(app);
+
+// Start the app by listening on the default Heroku port
+app.listen(process.env.PORT || 3000);
