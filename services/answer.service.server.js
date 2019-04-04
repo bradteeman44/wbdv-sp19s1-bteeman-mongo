@@ -26,9 +26,15 @@ module.exports = function(app) {
             .then(response => res.json(response))
     }
 
+    function deleteAnswer(req, res) {
+        dao.deleteAnswer(req.params.id)
+            .then(response => res.json(response))
+    }
+
     app.post('/api/student/:sid/question/:qid/answer', createAnswer);
     app.get('/api/student/:sid/question/:qid/answer', findAnswersByStudent);
     app.get('/api/question/:qid/student/:sid/answer', findAnswersByQuestion);
     app.get('/api/answer/:id', findAnswerById);
     app.get('/api/answer', findAllAnswers);
+    app.delete('/api/answer/:id', deleteAnswer);
 };

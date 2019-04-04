@@ -3,10 +3,31 @@ const studentModel = require('../models/student/student.model.server');
 const questionModel = require('../models/question/question.model.server');
 const answerModel = require('../models/answer/answer.model.server');
 const quizWidgetModel = require('../models/quiz-widget/quiz-widget.model.server');
+const STUDENTS = require('../mock-data/student.mock.server');
+const QUESTIONS = require('../mock-data/question.mock.server');
+const ANSWERS = require('../mock-data/answer.mock.server');
 
-truncateDatabase = () => {};
+truncateDatabase = () =>
+    answerModel.remove()
+        .then(response => {
+            console.log(response)
+            return questionModel.remove()
+        })
+        .then(response => {
+            console.log(response)
+            return studentModel.remove()
+        });
 
-populateDatabase = () => {};
+populateDatabase = () =>
+    studentModel.insertMany(STUDENTS)
+        .then(students => {
+            console.log(students)
+            return questionModel.insertMany(QUESTIONS)
+        })
+        .then(questions => {
+            console.log(questions)
+            return answerModel.insertMany(ANSWERS)
+        });
 
 createStudent = (student) =>
     studentModel.create(student);
@@ -54,10 +75,16 @@ updateAnswer = (answerId, answer) =>
     });
 
 findAllAnswers = () =>
-    answerModel.find();
+    answerModel.find()
+        .populate('student', 'firstName')
+        .populate('question', 'question')
+        .exec();
 
 findAnswerById = (answerId) =>
-    answerModel.findById(answerId);
+    answerModel.findById(answerId)
+        .populate('student', 'firstName')
+        .populate('question', 'question')
+        .exec();
 
 findAnswersByStudent = (studentId) =>
     answerModel.find({student: studentId})
@@ -88,5 +115,6 @@ module.exports = {
     findAnswersByStudent,
     findAnswersByQuestion,
     findAllAnswers,
-    findAnswerById
+    findAnswerById,
+    deleteAnswer
 };

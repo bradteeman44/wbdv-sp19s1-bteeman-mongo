@@ -10,10 +10,22 @@ const questionSchema = mongoose.Schema({
         enum: ["TRUE_FALSE", "MULTIPLE_CHOICE"],
         required: true
     },
-    isTrue: Boolean,
-    choices: String,
-    correct: Number
-    //multipleChoice: MultipleChoiceSchema,
-    //trueFalse: TrueFalseSchema
+    multipleChoice: {
+        type: MultipleChoiceSchema,
+        required: isMultipleChoice()
+    },
+    trueFalse: {
+        type: TrueFalseSchema,
+        required: isTrueFalse()
+    }
 }, {collection: 'questions'});
+
+function isTrueFalse() {
+    return this.enum === "TRUE_FALSE";
+}
+
+function isMultipleChoice() {
+    return this.enum === "MULTIPLE_CHOICE";
+}
+
 module.exports = questionSchema;
