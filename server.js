@@ -31,4 +31,4 @@ questionService(app);
 answerService(app);
 testDataService(app);
 
-app.listen(3000);
+app.listen(47344);
